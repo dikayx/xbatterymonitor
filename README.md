@@ -1,3 +1,7 @@
+<div align="center">
+ <img alt="xbm" height="200px" src="./Assets/xbm-nobg.png" />
+</div>
+
 # XBatteryMonitor (XBM)
 
 [![.NET 8](https://img.shields.io/badge/.NET-8.0-purple.svg)](https://dotnet.microsoft.com/download/dotnet/8.0)
@@ -29,4 +33,12 @@ By default, XBM will start with Windows and run in the background. You can acces
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+The code for this project is licensed under the MIT License. See the LICENSE file for details.
+
+However, the assets (such as icons, images, etc.) are copyrighted by [me](https://github.com/dikayx) and are not licensed under the MIT License. You may not use or distribute these assets without permission.
+
+I'm completely fine with you using the code for your own projects, but please use your own assets.
+
+## Acknowledgements
+
+Xbox and Xbox Game Bar are trademarks of Microsoft Corporation. This project is not affiliated with Microsoft.
