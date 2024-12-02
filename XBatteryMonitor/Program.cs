@@ -15,7 +15,7 @@ namespace XBatteryMonitor
             // Initialize NotifyIcon (taskbar tray)
             notifyIcon = new NotifyIcon
             {
-                Icon = SystemIcons.Information, // Replace with a custom .ico file if desired
+                Icon = Resources.Icon,
                 Visible = true,
                 ContextMenuStrip = new ContextMenuStrip()
             };
