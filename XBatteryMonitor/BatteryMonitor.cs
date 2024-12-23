@@ -51,7 +51,13 @@ namespace XBatteryMonitor
             cancellationTokenSource?.Cancel();
         }
 
-        // Method partially supported by Windows 7+, full support in Windows 10+
+        public static void UpdateSettings(int newThreshold, int newInterval)
+        {
+            Debug.WriteLine($"Updating settings: Threshold = {newThreshold}%, Interval = {newInterval} minutes");
+            batteryThreshold = newThreshold;
+            notificationInterval = newInterval;
+        }
+
         private static double GetBatteryPercentage(Windows.Devices.Power.BatteryReport batteryReport)
         {
             var remaining = batteryReport.RemainingCapacityInMilliwattHours;
@@ -65,7 +71,6 @@ namespace XBatteryMonitor
             return 0;
         }
 
-        // Method partially supported by Windows 7+, full support in Windows 10+
         private static void ShowLowBatteryNotification(double batteryPercentage)
         {
             var toastXml = ToastNotificationManager.GetTemplateContent(ToastTemplateType.ToastText02);
