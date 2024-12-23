@@ -41,10 +41,6 @@ By default, XBM will start with Windows and run in the background. You can acces
 
 The code for this project is licensed under the MIT License. See the LICENSE file for details.
 
-However, the assets (such as icons, images, etc.) are copyrighted by [me](https://github.com/dikayx) and are not licensed under the MIT License. You may not use or distribute these assets without permission.
-
-I'm completely fine with you using the code for your own projects, but please use your own assets.
-
 ## Acknowledgements
 
 Xbox and Xbox Game Bar are trademarks of Microsoft Corporation. This project is not affiliated with Microsoft.
