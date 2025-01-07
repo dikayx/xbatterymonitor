@@ -15,7 +15,7 @@ namespace XBatteryMonitor
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            // Initialize taskbar tray icon
+            // Initialize NotifyIcon (taskbar tray)
             notifyIcon = new NotifyIcon
             {
                 Icon = Resources.Icon,
@@ -24,21 +24,18 @@ namespace XBatteryMonitor
                 Text = "Checking status..."
             };
 
-            statusMenuItem = new ToolStripMenuItem("Checking status...")
-            {
-                Enabled = false
-            };
+            statusMenuItem = new ToolStripMenuItem("Checking status...") { Enabled = false };
             notifyIcon.ContextMenuStrip.Items.Add(statusMenuItem);
-
             notifyIcon.ContextMenuStrip.Items.Add(new ToolStripSeparator());
-
             notifyIcon.ContextMenuStrip.Items.Add("Settings", null, (s, e) => ShowSettings());
             notifyIcon.ContextMenuStrip.Items.Add("Exit", null, (s, e) => Application.Exit());
 
-            // Update the tray tooltip with the initial message
             UpdateTrayTooltip(GetInitialTooltipMessage());
-
             BatteryMonitor.Start(UpdateTrayTooltip);
+
+            // Add event handlers
+            Gamepad.GamepadAdded += (s, e) => BatteryMonitor.Start(UpdateTrayTooltip);
+            Gamepad.GamepadRemoved += (s, e) => UpdateTrayTooltip("No controller connected. Waiting...");
 
             Application.Run();
         }

@@ -15,6 +15,7 @@ namespace XBatteryMonitor
             autostartCheckbox.Checked = Properties.Settings.Default.Autostart;
             batteryThresholdSlider.Value = Properties.Settings.Default.BatteryThreshold;
             notificationIntervalInput.Value = Properties.Settings.Default.NotificationInterval;
+            sleepThresholdInput.Value = Properties.Settings.Default.SleepThreshold;
 
             UpdateThresholdLabel();
 
@@ -144,10 +145,11 @@ namespace XBatteryMonitor
             Properties.Settings.Default.Autostart = autostartCheckbox.Checked;
             Properties.Settings.Default.BatteryThreshold = batteryThresholdSlider.Value;
             Properties.Settings.Default.NotificationInterval = (int)notificationIntervalInput.Value;
+            Properties.Settings.Default.SleepThreshold = (int)sleepThresholdInput.Value;
             Properties.Settings.Default.Save();
 
             // Update the running monitor with new settings
-            BatteryMonitor.UpdateSettings(batteryThresholdSlider.Value, (int)notificationIntervalInput.Value);
+            BatteryMonitor.UpdateSettings(batteryThresholdSlider.Value, (int)notificationIntervalInput.Value, (int)sleepThresholdInput.Value);
 
             MessageBox.Show("Settings saved!", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
             Close();

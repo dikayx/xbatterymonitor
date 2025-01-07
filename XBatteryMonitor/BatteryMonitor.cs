@@ -1,5 +1,4 @@
-﻿using System.Diagnostics;
-using Windows.Gaming.Input;
+﻿using Windows.Gaming.Input;
 using Windows.UI.Notifications;
 
 namespace XBatteryMonitor
@@ -9,6 +8,8 @@ namespace XBatteryMonitor
         private static CancellationTokenSource cancellationTokenSource;
         private static int batteryThreshold = Properties.Settings.Default.BatteryThreshold;
         private static int notificationInterval = Properties.Settings.Default.NotificationInterval;
+        private static int sleepThreshold = Properties.Settings.Default.SleepThreshold * 60; // Convert to seconds
+        private static bool isSleeping = false;
 
         public static void Start(Action<string> updateTrayTooltip)
         {
@@ -16,43 +17,54 @@ namespace XBatteryMonitor
 
             Task.Run(async () =>
             {
+                DateTime lastConnectedTime = DateTime.UtcNow;
+
                 while (!cancellationTokenSource.Token.IsCancellationRequested)
                 {
-                    string tooltipText;
                     var gamepad = Gamepad.Gamepads.FirstOrDefault();
 
                     if (gamepad != null)
                     {
-                        Debug.WriteLine("Xbox controller found.");
+                        if (isSleeping)
+                        {
+                            isSleeping = false;
+                            updateTrayTooltip("Controller connected. Resuming...");
+                        }
+
                         var batteryReport = gamepad.TryGetBatteryReport();
-                        if (batteryReport != null)
-                        {
-                            var batteryPercentage = GetBatteryPercentage(batteryReport);
+                        var batteryPercentage = batteryReport != null
+                            ? GetBatteryPercentage(batteryReport)
+                            : -1;
 
-                            tooltipText = $"Controller Connected: {batteryPercentage:0.0}% battery";
+                        string tooltipText = batteryPercentage >= 0
+                            ? $"Controller Connected: {batteryPercentage:0.0}% battery"
+                            : "Controller Connected: Battery status unknown";
 
-                            if (batteryPercentage < batteryThreshold)
-                            {
-                                ShowLowBatteryNotification(batteryPercentage);
-                            }
-                        }
-                        else
+                        if (batteryPercentage < batteryThreshold)
                         {
-                            tooltipText = "Controller Connected: Battery status unknown";
+                            ShowLowBatteryNotification(batteryPercentage);
                         }
+
+                        updateTrayTooltip(tooltipText);
+                        lastConnectedTime = DateTime.UtcNow;
                     }
                     else
                     {
-                        Debug.WriteLine("No Xbox controller found.");
-                        tooltipText = "No controller connected";
+                        if (!isSleeping && (DateTime.UtcNow - lastConnectedTime).TotalSeconds >= sleepThreshold)
+                        {
+                            isSleeping = true;
+                            updateTrayTooltip("No controller connected. Going to sleep...");
+                        }
+
+                        if (!isSleeping)
+                        {
+                            updateTrayTooltip("No controller connected");
+                        }
                     }
 
-                    // Update the tray tooltip and context menu status label
-                    updateTrayTooltip?.Invoke(tooltipText);
-
-                    //await Task.Delay(notificationInterval * 60 * 1000); // Interval in minutes
+                    //await Task.Delay(isSleeping ? 1000 : notificationInterval * 60 * 1000);
                     // For debugging reasons, wait 30 seconds
-                    await Task.Delay(30 * 1000);
+                    await Task.Delay(isSleeping ? 1000 : 30 * 1000);
                 }
             });
         }
@@ -62,11 +74,11 @@ namespace XBatteryMonitor
             cancellationTokenSource?.Cancel();
         }
 
-        public static void UpdateSettings(int newThreshold, int newInterval)
+        public static void UpdateSettings(int newThreshold, int newInterval, int newSleepThreshold)
         {
-            Debug.WriteLine($"Updating settings: Threshold = {newThreshold}%, Interval = {newInterval} minutes");
             batteryThreshold = newThreshold;
             notificationInterval = newInterval;
+            sleepThreshold = newSleepThreshold * 60; // Convert to seconds
         }
 
         public static double GetBatteryPercentage(Windows.Devices.Power.BatteryReport batteryReport)

@@ -9,6 +9,8 @@
         private Label connectionStatusLabel;
         private Label batteryPercentageLabel;
         private Label batteryThresholdLabel;
+        private NumericUpDown sleepThresholdInput;
+        private Label sleepThresholdLabel;
 
         private GroupBox batteryGroupBox;
         private GroupBox notificationGroupBox;
@@ -42,6 +44,14 @@
                 AutoSize = true,
                 TextAlign = System.Drawing.ContentAlignment.MiddleCenter
             };
+            sleepThresholdInput = new NumericUpDown { Minimum = 1, Maximum = 60, Value = 5, Dock = DockStyle.Top };
+            sleepThresholdLabel = new Label
+            {
+                Text = "Sleep Threshold (minutes): 5",
+                Dock = DockStyle.Top,
+                AutoSize = true,
+                TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+            };
 
             batteryThresholdSlider.ValueChanged += BatteryThresholdSlider_ValueChanged;
             saveButton.Click += SaveButton_Click;
@@ -54,9 +64,11 @@
             batteryGroupBox.Controls.Add(batteryPercentageLabel);
 
             // Notification Settings GroupBox
-            notificationGroupBox = new GroupBox { Text = "Notification Settings", Dock = DockStyle.Top, Padding = new Padding(10), Height = 90 };
+            notificationGroupBox = new GroupBox { Text = "Notification Settings", Dock = DockStyle.Top, Padding = new Padding(10), Height = 130 };
             notificationGroupBox.Controls.Add(notificationIntervalInput);
             notificationGroupBox.Controls.Add(new Label { Text = "Notification Interval (minutes):", Dock = DockStyle.Top });
+            notificationGroupBox.Controls.Add(sleepThresholdInput);
+            notificationGroupBox.Controls.Add(new Label { Text = "Sleep Threshold (minutes):", Dock = DockStyle.Top });
 
             // Autostart Settings GroupBox
             autostartGroupBox = new GroupBox { Text = "Autostart Settings", Dock = DockStyle.Top, Padding = new Padding(10), Height = 60 };
@@ -76,7 +88,7 @@
 
             Text = "Settings";
             Width = 300;
-            Height = 400;
+            Height = 450;
         }
     }
 }
