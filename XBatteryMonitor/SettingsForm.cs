@@ -1,8 +1,3 @@
-using System;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 using Windows.Gaming.Input;
 
 namespace XBatteryMonitor
@@ -11,24 +6,20 @@ namespace XBatteryMonitor
     {
         private CancellationTokenSource cancellationTokenSource;
 
-        // Event to notify about threshold changes
         public event Action<int> ThresholdChanged;
 
         public SettingsForm()
         {
             InitializeComponent();
 
-            // Load saved settings
             autostartCheckbox.Checked = Properties.Settings.Default.Autostart;
             batteryThresholdSlider.Value = Properties.Settings.Default.BatteryThreshold;
             notificationIntervalInput.Value = Properties.Settings.Default.NotificationInterval;
 
             UpdateThresholdLabel();
 
-            // Immediately check and update the current status
             CheckControllerStatus();
 
-            // Start monitoring controller connection and battery status
             StartMonitoringStatus();
         }
 
@@ -89,7 +80,7 @@ namespace XBatteryMonitor
                         UpdateBatteryPercentageLabel(null);
                     }
 
-                    await Task.Delay(1000); // Check status every second
+                    await Task.Delay(1000);
                 }
             });
         }
@@ -150,7 +141,6 @@ namespace XBatteryMonitor
 
         private void SaveButton_Click(object sender, EventArgs e)
         {
-            // Save settings
             Properties.Settings.Default.Autostart = autostartCheckbox.Checked;
             Properties.Settings.Default.BatteryThreshold = batteryThresholdSlider.Value;
             Properties.Settings.Default.NotificationInterval = (int)notificationIntervalInput.Value;

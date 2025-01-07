@@ -39,7 +39,7 @@ By default, XBM will start with Windows and run in the background. You can acces
 
 ## License
 
-The code for this project is licensed under the MIT License. See the LICENSE file for details.
+The code for this project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
 
 ## Acknowledgements
 

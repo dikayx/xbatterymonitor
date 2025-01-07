@@ -10,7 +10,7 @@ namespace XBatteryMonitor
         private static int batteryThreshold = Properties.Settings.Default.BatteryThreshold;
         private static int notificationInterval = Properties.Settings.Default.NotificationInterval;
 
-        public static void Start()
+        public static void Start(Action<string> updateTrayTooltip)
         {
             cancellationTokenSource = new CancellationTokenSource();
 
@@ -18,6 +18,7 @@ namespace XBatteryMonitor
             {
                 while (!cancellationTokenSource.Token.IsCancellationRequested)
                 {
+                    string tooltipText;
                     var gamepad = Gamepad.Gamepads.FirstOrDefault();
 
                     if (gamepad != null)
@@ -28,16 +29,26 @@ namespace XBatteryMonitor
                         {
                             var batteryPercentage = GetBatteryPercentage(batteryReport);
 
+                            tooltipText = $"Controller Connected: {batteryPercentage:0.0}% battery";
+
                             if (batteryPercentage < batteryThreshold)
                             {
                                 ShowLowBatteryNotification(batteryPercentage);
                             }
                         }
+                        else
+                        {
+                            tooltipText = "Controller Connected: Battery status unknown";
+                        }
                     }
                     else
                     {
                         Debug.WriteLine("No Xbox controller found.");
+                        tooltipText = "No controller connected";
                     }
+
+                    // Update the tray tooltip and context menu status label
+                    updateTrayTooltip?.Invoke(tooltipText);
 
                     //await Task.Delay(notificationInterval * 60 * 1000); // Interval in minutes
                     // For debugging reasons, wait 30 seconds
@@ -58,7 +69,7 @@ namespace XBatteryMonitor
             notificationInterval = newInterval;
         }
 
-        private static double GetBatteryPercentage(Windows.Devices.Power.BatteryReport batteryReport)
+        public static double GetBatteryPercentage(Windows.Devices.Power.BatteryReport batteryReport)
         {
             var remaining = batteryReport.RemainingCapacityInMilliwattHours;
             var full = batteryReport.FullChargeCapacityInMilliwattHours;

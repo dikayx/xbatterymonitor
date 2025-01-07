@@ -65,7 +65,7 @@
             // Connection Status GroupBox
             connectionGroupBox = new GroupBox { Text = "Connection Status", Dock = DockStyle.Top, Padding = new Padding(10), Height = 70 };
             connectionGroupBox.Controls.Add(connectionStatusLabel);
-            connectionGroupBox.Controls.Add(batteryPercentageLabel); // Add battery percentage label
+            connectionGroupBox.Controls.Add(batteryPercentageLabel);
 
             // Adding controls to the form
             Controls.Add(saveButton);
@@ -76,7 +76,7 @@
 
             Text = "Settings";
             Width = 300;
-            Height = 400; // Adjusted height to fit all controls
+            Height = 400;
         }
     }
 }
