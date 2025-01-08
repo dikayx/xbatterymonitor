@@ -14,46 +14,40 @@ namespace XBatteryMonitor
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            // Taskbar tray icon
             notifyIcon = new NotifyIcon
             {
                 Icon = Resources.Icon,
                 Visible = true,
-                ContextMenuStrip = new ContextMenuStrip(),
+                ContextMenuStrip = CreateContextMenu(),
                 Text = "Checking status..."
             };
 
-            statusMenuItem = new ToolStripMenuItem("Checking status...") { Enabled = false };
-            notifyIcon.ContextMenuStrip.Items.Add(statusMenuItem);
-            notifyIcon.ContextMenuStrip.Items.Add(new ToolStripSeparator());
-            notifyIcon.ContextMenuStrip.Items.Add("Settings", null, (s, e) => ShowSettings());
-            notifyIcon.ContextMenuStrip.Items.Add("Exit", null, (s, e) => Application.Exit());
-
-            UpdateTrayTooltip(GetInitialTooltipMessage());
             BatteryMonitor.Start(UpdateTrayTooltip);
 
-            // Add event handlers
-            Gamepad.GamepadAdded += (s, e) => BatteryMonitor.Start(UpdateTrayTooltip);
-            Gamepad.GamepadRemoved += (s, e) => UpdateTrayTooltip("No controller connected. Waiting...");
+            // Handle gamepad connection events
+            Gamepad.GamepadAdded += (s, e) =>
+            {
+                UpdateTrayTooltip("Controller added. Checking status...");
+                BatteryMonitor.Start(UpdateTrayTooltip);
+            };
+
+            Gamepad.GamepadRemoved += (s, e) =>
+            {
+                UpdateTrayTooltip("Controller removed. Waiting for connection...");
+            };
 
             Application.Run();
         }
 
-        static string GetInitialTooltipMessage()
+        private static ContextMenuStrip CreateContextMenu()
         {
-            var gamepad = Gamepad.Gamepads.FirstOrDefault();
-
-            if (gamepad != null)
-            {
-                var batteryReport = gamepad.TryGetBatteryReport();
-                if (batteryReport != null)
-                {
-                    var batteryPercentage = BatteryMonitor.GetBatteryPercentage(batteryReport);
-                    return $"Controller Connected: {batteryPercentage:0.0}% battery";
-                }
-                return "Controller Connected: Battery status N/A";
-            }
-            return "No controller connected";
+            var contextMenu = new ContextMenuStrip();
+            statusMenuItem = new ToolStripMenuItem("Checking status...") { Enabled = false };
+            contextMenu.Items.Add(statusMenuItem);
+            contextMenu.Items.Add(new ToolStripSeparator());
+            contextMenu.Items.Add("Settings", null, (s, e) => ShowSettings());
+            contextMenu.Items.Add("Exit", null, (s, e) => Application.Exit());
+            return contextMenu;
         }
 
         static void UpdateTrayTooltip(string message)
@@ -91,7 +85,18 @@ namespace XBatteryMonitor
                 shortMessage = "No controller connected";
             }
 
-            statusMenuItem.Text = shortMessage;
+            // Ensure this runs on the UI thread
+            if (statusMenuItem.GetCurrentParent().InvokeRequired)
+            {
+                statusMenuItem.GetCurrentParent().Invoke(new Action(() =>
+                {
+                    statusMenuItem.Text = shortMessage;
+                }));
+            }
+            else
+            {
+                statusMenuItem.Text = shortMessage;
+            }
         }
 
         private static string ExtractBatteryLevelMessage(string message)

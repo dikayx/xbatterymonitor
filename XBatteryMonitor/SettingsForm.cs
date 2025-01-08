@@ -53,39 +53,39 @@ namespace XBatteryMonitor
 
         private void StartMonitoringStatus()
         {
+            cancellationTokenSource?.Cancel();
             cancellationTokenSource = new CancellationTokenSource();
 
             Task.Run(async () =>
             {
-                bool lastConnectedState = false;
-
                 while (!cancellationTokenSource.Token.IsCancellationRequested)
                 {
                     var gamepad = Gamepad.Gamepads.FirstOrDefault();
                     bool isConnected = gamepad != null;
 
-                    if (isConnected != lastConnectedState)
+                    if (InvokeRequired)
                     {
-                        lastConnectedState = isConnected;
-                        UpdateConnectionStatusLabel(isConnected);
-                    }
-
-                    if (isConnected)
-                    {
-                        var batteryReport = gamepad.TryGetBatteryReport();
-                        if (batteryReport != null)
+                        Invoke(new Action(() =>
                         {
-                            UpdateBatteryPercentageLabel(GetBatteryPercentage(batteryReport));
-                        }
-                    }
-                    else
-                    {
-                        UpdateBatteryPercentageLabel(null);
+                            UpdateConnectionStatusLabel(isConnected);
+
+                            if (isConnected)
+                            {
+                                var batteryReport = gamepad.TryGetBatteryReport();
+                                UpdateBatteryPercentageLabel(batteryReport != null
+                                    ? GetBatteryPercentage(batteryReport)
+                                    : null);
+                            }
+                            else
+                            {
+                                UpdateBatteryPercentageLabel(null);
+                            }
+                        }));
                     }
 
-                    await Task.Delay(1000);
+                    await Task.Delay(2000, cancellationTokenSource.Token);
                 }
-            });
+            }, cancellationTokenSource.Token);
         }
 
         private static double? GetBatteryPercentage(BatteryReport batteryReport)

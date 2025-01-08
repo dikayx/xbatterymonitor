@@ -62,7 +62,7 @@ namespace XBatteryMonitor
                         }
                     }
 
-                    await Task.Delay(isSleeping ? 1000 : notificationInterval * 60 * 1000);
+                    await Task.Delay(isSleeping ? sleepThreshold * 1000 : notificationInterval * 1000);
                 }
             });
         }
