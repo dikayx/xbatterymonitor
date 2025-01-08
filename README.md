@@ -20,13 +20,7 @@ XBM is a small companion app for Windows that monitors the battery level of your
 
 ## Installation
 
-~~It's simple! Download the latest release from the [releases page](https://github.com/dikayx/xbatterymonitor/releases) and run the installer.~~
-
-Currently, this app is in active development. You can build it yourself by cloning the repository and running the following command:
-
-```cmd
-git clone https://github.com/dikayx/xbatterymonitor && cd xbatterymonitor && dotnet build
-```
+It's simple! Download the latest release from the [releases page](https://github.com/dikayx/xbatterymonitor/releases) and run the installer. Follow the [installation instructions](Docs/INSTALLATION.md) for more details.
 
 ### Requirements
 
@@ -35,7 +29,7 @@ git clone https://github.com/dikayx/xbatterymonitor && cd xbatterymonitor && dot
 
 ## Usage
 
-By default, XBM will start with Windows and run in the background. You can access the settings by right-clicking the tray icon.
+By default, XBM will start with Windows and run in the background. You can access the settings by right-clicking the tray icon. For more information, refer to the [user guide](Docs/USER_GUIDE.md).
 
 ## License
 
