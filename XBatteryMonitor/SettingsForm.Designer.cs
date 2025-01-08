@@ -19,7 +19,7 @@
         private NumericUpDown notificationIntervalInput;
 
         private Button saveButton;
-        private Button testNotificationButton; // New button for testing notifications
+        private Button testNotificationButton;
 
         private void InitializeComponent()
         {
@@ -29,7 +29,7 @@
             sleepThresholdInput = new NumericUpDown { Minimum = 1, Maximum = 60, Value = 5, Dock = DockStyle.Top };
             notificationIntervalInput = new NumericUpDown { Minimum = 1, Maximum = 60, Dock = DockStyle.Top };
             saveButton = new Button { Text = "Save", Dock = DockStyle.Bottom };
-            testNotificationButton = new Button { Text = "Test Notification", Dock = DockStyle.Top }; // Test notification button
+            testNotificationButton = new Button { Text = "Test Notification", Dock = DockStyle.Top };
 
             // Labels
             connectionStatusLabel = new Label

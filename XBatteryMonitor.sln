@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.12.35506.116 d17.12
+VisualStudioVersion = 17.12.35506.116
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XBatteryMonitor", "XBatteryMonitor\XBatteryMonitor.csproj", "{1B51E66C-7AC3-4BBF-AD5C-9193CDFFCB03}"
+EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "XBatteryMonitorSetup", "XBatteryMonitorSetup\XBatteryMonitorSetup.vdproj", "{339C85D7-9E3D-4227-871C-C7FE9B4CF1B2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,8 @@ Global
 		{1B51E66C-7AC3-4BBF-AD5C-9193CDFFCB03}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1B51E66C-7AC3-4BBF-AD5C-9193CDFFCB03}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1B51E66C-7AC3-4BBF-AD5C-9193CDFFCB03}.Release|Any CPU.Build.0 = Release|Any CPU
+		{339C85D7-9E3D-4227-871C-C7FE9B4CF1B2}.Debug|Any CPU.ActiveCfg = Debug
+		{339C85D7-9E3D-4227-871C-C7FE9B4CF1B2}.Release|Any CPU.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
