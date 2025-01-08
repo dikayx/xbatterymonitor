@@ -2,27 +2,34 @@
 {
     partial class SettingsForm
     {
-        private CheckBox autostartCheckbox;
-        private TrackBar batteryThresholdSlider;
-        private NumericUpDown notificationIntervalInput;
-        private Button saveButton;
-        private Label connectionStatusLabel;
-        private Label batteryPercentageLabel;
-        private Label batteryThresholdLabel;
-        private NumericUpDown sleepThresholdInput;
-        private Label sleepThresholdLabel;
-
         private GroupBox batteryGroupBox;
         private GroupBox notificationGroupBox;
         private GroupBox autostartGroupBox;
         private GroupBox connectionGroupBox;
 
+        private CheckBox autostartCheckbox;
+
+        private Label batteryPercentageLabel;
+        private Label connectionStatusLabel;
+
+        private Label batteryThresholdLabel;
+        private TrackBar batteryThresholdSlider;
+
+        private NumericUpDown sleepThresholdInput;
+        private NumericUpDown notificationIntervalInput;
+
+        private Button saveButton;
+
         private void InitializeComponent()
         {
+            // Controls
             autostartCheckbox = new CheckBox { Text = "Autostart with Windows", Dock = DockStyle.Top };
             batteryThresholdSlider = new TrackBar { Minimum = 0, Maximum = 100, TickFrequency = 10, Dock = DockStyle.Top };
+            sleepThresholdInput = new NumericUpDown { Minimum = 1, Maximum = 60, Value = 5, Dock = DockStyle.Top };
             notificationIntervalInput = new NumericUpDown { Minimum = 1, Maximum = 60, Dock = DockStyle.Top };
             saveButton = new Button { Text = "Save", Dock = DockStyle.Bottom };
+
+            // Labels
             connectionStatusLabel = new Label
             {
                 Text = "Controller Status: Disconnected",
@@ -40,14 +47,6 @@
             batteryThresholdLabel = new Label
             {
                 Text = "Selected Battery Threshold: 20%",
-                Dock = DockStyle.Top,
-                AutoSize = true,
-                TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-            };
-            sleepThresholdInput = new NumericUpDown { Minimum = 1, Maximum = 60, Value = 5, Dock = DockStyle.Top };
-            sleepThresholdLabel = new Label
-            {
-                Text = "Sleep Threshold (minutes): 5",
                 Dock = DockStyle.Top,
                 AutoSize = true,
                 TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -86,6 +85,7 @@
             Controls.Add(connectionGroupBox);
             Controls.Add(autostartGroupBox);
 
+            // Form
             Text = "Settings";
             Width = 300;
             Height = 450;

@@ -1,13 +1,12 @@
-using System.Diagnostics;
-using System.Windows.Forms;
+using System.Text.RegularExpressions;
 using Windows.Gaming.Input;
 
 namespace XBatteryMonitor
 {
     static class Program
     {
-        static NotifyIcon notifyIcon;
-        static ToolStripMenuItem statusMenuItem;
+        static NotifyIcon? notifyIcon;
+        static ToolStripMenuItem? statusMenuItem;
 
         [STAThread]
         static void Main()
@@ -15,7 +14,7 @@ namespace XBatteryMonitor
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            // Initialize NotifyIcon (taskbar tray)
+            // Taskbar tray icon
             notifyIcon = new NotifyIcon
             {
                 Icon = Resources.Icon,
@@ -59,46 +58,59 @@ namespace XBatteryMonitor
 
         static void UpdateTrayTooltip(string message)
         {
+            // Replace commas with periods and truncate if necessary
+            message = message.Replace(',', '.');
             if (notifyIcon != null)
             {
-                message = message.Replace(',', '.');
-                notifyIcon.Text = message.Length <= 63 ? message : message.Substring(0, 60) + "...";
+                UpdateNotifyIconTooltip(message);
             }
 
             if (statusMenuItem != null)
             {
-                string shortMessage;
-
-                if (message.Contains("Controller Connected"))
-                {
-                    // Use regex to extract the battery percentage
-                    var match = System.Text.RegularExpressions.Regex.Match(message, @"(\d{1,3}.\d)%");
-                    if (match.Success)
-                    {
-                        // Convert the extracted value to standard format (e.g., 70.0%)
-                        var batteryLevel = match.Groups[1].Value.Replace(',', '.');
-                        shortMessage = $"Battery level: {batteryLevel}%";
-                    }
-                    else
-                    {
-                        shortMessage = "Battery level: N/A";
-                    }
-                }
-                else
-                {
-                    shortMessage = "No controller connected";
-                }
-
-                statusMenuItem.Text = shortMessage;
+                UpdateStatusMenuItem(message);
             }
+        }
+
+        private static void UpdateNotifyIconTooltip(string message)
+        {
+            if (string.IsNullOrWhiteSpace(message)) return;
+
+            notifyIcon.Text = message.Length <= 63 ? message : string.Concat(message.AsSpan(0, 60), "...");
+        }
+
+        private static void UpdateStatusMenuItem(string message)
+        {
+            string shortMessage;
+
+            if (message.Contains("Controller Connected", StringComparison.OrdinalIgnoreCase))
+            {
+                shortMessage = ExtractBatteryLevelMessage(message);
+            }
+            else
+            {
+                shortMessage = "No controller connected";
+            }
+
+            statusMenuItem.Text = shortMessage;
+        }
+
+        private static string ExtractBatteryLevelMessage(string message)
+        {
+            // Use regex to extract the battery percentage
+            var match = Regex.Match(message, @"(\d{1,3}\.\d)%");
+            if (match.Success)
+            {
+                var batteryLevel = match.Groups[1].Value;
+                return $"Battery level: {batteryLevel}%";
+            }
+
+            return "Battery level: N/A";
         }
 
         static void ShowSettings()
         {
-            using (var settingsForm = new SettingsForm())
-            {
-                settingsForm.ShowDialog();
-            }
+            using var settingsForm = new SettingsForm();
+            settingsForm.ShowDialog();
         }
     }
 }

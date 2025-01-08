@@ -5,10 +5,10 @@ namespace XBatteryMonitor
 {
     public static class BatteryMonitor
     {
-        private static CancellationTokenSource cancellationTokenSource;
+        private static CancellationTokenSource? cancellationTokenSource;
         private static int batteryThreshold = Properties.Settings.Default.BatteryThreshold;
         private static int notificationInterval = Properties.Settings.Default.NotificationInterval;
-        private static int sleepThreshold = Properties.Settings.Default.SleepThreshold * 60; // Convert to seconds
+        private static int sleepThreshold = Properties.Settings.Default.SleepThreshold * 60;
         private static bool isSleeping = false;
 
         public static void Start(Action<string> updateTrayTooltip)
@@ -62,9 +62,7 @@ namespace XBatteryMonitor
                         }
                     }
 
-                    //await Task.Delay(isSleeping ? 1000 : notificationInterval * 60 * 1000);
-                    // For debugging reasons, wait 30 seconds
-                    await Task.Delay(isSleeping ? 1000 : 30 * 1000);
+                    await Task.Delay(isSleeping ? 1000 : notificationInterval * 60 * 1000);
                 }
             });
         }

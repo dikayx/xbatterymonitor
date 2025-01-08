@@ -1,4 +1,5 @@
 using Windows.Gaming.Input;
+using Windows.Devices.Power;
 
 namespace XBatteryMonitor
 {
@@ -32,7 +33,6 @@ namespace XBatteryMonitor
 
             if (gamepad != null)
             {
-                // Update connection status and battery percentage
                 UpdateConnectionStatusLabel(true);
                 var batteryReport = gamepad.TryGetBatteryReport();
                 if (batteryReport != null)
@@ -88,7 +88,7 @@ namespace XBatteryMonitor
             });
         }
 
-        private double? GetBatteryPercentage(Windows.Devices.Power.BatteryReport batteryReport)
+        private static double? GetBatteryPercentage(BatteryReport batteryReport)
         {
             var remaining = batteryReport.RemainingCapacityInMilliwattHours;
             var full = batteryReport.FullChargeCapacityInMilliwattHours;
@@ -150,7 +150,6 @@ namespace XBatteryMonitor
             Properties.Settings.Default.SleepThreshold = (int)sleepThresholdInput.Value;
             Properties.Settings.Default.Save();
 
-            // Update the running monitor with new settings
             BatteryMonitor.UpdateSettings(batteryThresholdSlider.Value, (int)notificationIntervalInput.Value, (int)sleepThresholdInput.Value);
 
             MessageBox.Show("Settings saved!", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
