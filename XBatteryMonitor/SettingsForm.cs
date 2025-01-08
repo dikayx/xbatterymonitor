@@ -12,6 +12,8 @@ namespace XBatteryMonitor
         {
             InitializeComponent();
 
+            this.Icon = Resources.Icon;
+
             autostartCheckbox.Checked = Properties.Settings.Default.Autostart;
             batteryThresholdSlider.Value = Properties.Settings.Default.BatteryThreshold;
             notificationIntervalInput.Value = Properties.Settings.Default.NotificationInterval;
