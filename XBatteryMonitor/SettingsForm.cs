@@ -142,6 +142,11 @@ namespace XBatteryMonitor
             batteryThresholdLabel.Text = $"Selected Battery Threshold: {batteryThresholdSlider.Value}%";
         }
 
+        private void TestNotificationButton_Click(object sender, EventArgs e)
+        {
+            NotificationHandler.ShowToastNotification("Test Notification");
+        }
+
         private void SaveButton_Click(object sender, EventArgs e)
         {
             Properties.Settings.Default.Autostart = autostartCheckbox.Checked;
@@ -152,7 +157,7 @@ namespace XBatteryMonitor
 
             BatteryMonitor.UpdateSettings(batteryThresholdSlider.Value, (int)notificationIntervalInput.Value, (int)sleepThresholdInput.Value);
 
-            MessageBox.Show("Settings saved!", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            NotificationHandler.ShowMessageBox("Settings saved successfully!");
             Close();
         }
 

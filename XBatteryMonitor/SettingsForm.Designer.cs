@@ -19,6 +19,7 @@
         private NumericUpDown notificationIntervalInput;
 
         private Button saveButton;
+        private Button testNotificationButton; // New button for testing notifications
 
         private void InitializeComponent()
         {
@@ -28,6 +29,7 @@
             sleepThresholdInput = new NumericUpDown { Minimum = 1, Maximum = 60, Value = 5, Dock = DockStyle.Top };
             notificationIntervalInput = new NumericUpDown { Minimum = 1, Maximum = 60, Dock = DockStyle.Top };
             saveButton = new Button { Text = "Save", Dock = DockStyle.Bottom };
+            testNotificationButton = new Button { Text = "Test Notification", Dock = DockStyle.Top }; // Test notification button
 
             // Labels
             connectionStatusLabel = new Label
@@ -54,6 +56,7 @@
 
             batteryThresholdSlider.ValueChanged += BatteryThresholdSlider_ValueChanged;
             saveButton.Click += SaveButton_Click;
+            testNotificationButton.Click += TestNotificationButton_Click;
 
             // Battery Settings GroupBox
             batteryGroupBox = new GroupBox { Text = "Battery Settings", Dock = DockStyle.Top, Padding = new Padding(10), Height = 120 };
@@ -63,11 +66,12 @@
             batteryGroupBox.Controls.Add(batteryPercentageLabel);
 
             // Notification Settings GroupBox
-            notificationGroupBox = new GroupBox { Text = "Notification Settings", Dock = DockStyle.Top, Padding = new Padding(10), Height = 130 };
+            notificationGroupBox = new GroupBox { Text = "Notification Settings", Dock = DockStyle.Top, Padding = new Padding(10), Height = 160 };
             notificationGroupBox.Controls.Add(notificationIntervalInput);
             notificationGroupBox.Controls.Add(new Label { Text = "Notification Interval (minutes):", Dock = DockStyle.Top });
             notificationGroupBox.Controls.Add(sleepThresholdInput);
             notificationGroupBox.Controls.Add(new Label { Text = "Sleep Threshold (minutes):", Dock = DockStyle.Top });
+            notificationGroupBox.Controls.Add(testNotificationButton);
 
             // Autostart Settings GroupBox
             autostartGroupBox = new GroupBox { Text = "Autostart Settings", Dock = DockStyle.Top, Padding = new Padding(10), Height = 60 };
@@ -88,7 +92,7 @@
             // Form
             Text = "Settings";
             Width = 300;
-            Height = 450;
+            Height = 470;
         }
     }
 }

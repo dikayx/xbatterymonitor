@@ -1,4 +1,5 @@
-﻿using Windows.Gaming.Input;
+﻿using Windows.Devices.Power;
+using Windows.Gaming.Input;
 using Windows.UI.Notifications;
 
 namespace XBatteryMonitor
@@ -79,7 +80,7 @@ namespace XBatteryMonitor
             sleepThreshold = newSleepThreshold * 60; // Convert to seconds
         }
 
-        public static double GetBatteryPercentage(Windows.Devices.Power.BatteryReport batteryReport)
+        private static double GetBatteryPercentage(BatteryReport batteryReport)
         {
             var remaining = batteryReport.RemainingCapacityInMilliwattHours;
             var full = batteryReport.FullChargeCapacityInMilliwattHours;
@@ -94,13 +95,7 @@ namespace XBatteryMonitor
 
         private static void ShowLowBatteryNotification(double batteryPercentage)
         {
-            var toastXml = ToastNotificationManager.GetTemplateContent(ToastTemplateType.ToastText02);
-            var textElements = toastXml.GetElementsByTagName("text");
-            textElements[0].AppendChild(toastXml.CreateTextNode("Xbox Controller Battery Low"));
-            textElements[1].AppendChild(toastXml.CreateTextNode($"Battery is at {batteryPercentage:0.0}%"));
-
-            var toast = new ToastNotification(toastXml);
-            ToastNotificationManager.CreateToastNotifier("XboxControllerBatteryMonitor").Show(toast);
+            NotificationHandler.ShowToastNotification(batteryPercentage);
         }
     }
 }
