@@ -1,5 +1,5 @@
 <div align="center">
- <img alt="xbm" height="200px" src="./Assets/xbm_256x256.png">
+ <img alt="xbm" height="200px" src="./Assets/xbm_256x256.png">
 </div>
 
 # XBatteryMonitor (XBM)

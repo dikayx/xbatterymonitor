@@ -17,11 +17,13 @@ Follow these steps to install XBM on your Windows PC:
 
     - Go to the [releases page](https://github.com/dikayx/xbatterymonitor/releases)
 
-    - Download the latest release installer (`XBM-Setup-x.x.x.exe`)
+    - Download the latest release installer (`XBatteryMonitorSetup-vX.X.X.zip`)
+
+    - Extract the contents of the zip file to a folder on your system
 
 2. **Run the Installer**
 
-    - Double-click the installer file to launch the setup wizard
+    - Double-click the installer file (`XBatteryMonitorSetup.exe`) to launch the setup wizard
 
     - Follow the on-screen instructions to install XBM on your system
 
