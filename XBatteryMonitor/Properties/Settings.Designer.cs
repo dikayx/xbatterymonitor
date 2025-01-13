@@ -70,5 +70,17 @@ namespace XBatteryMonitor.Properties {
                 this["SleepThreshold"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool CheckForUpdatesRegularly {
+            get {
+                return ((bool)(this["CheckForUpdatesRegularly"]));
+            }
+            set {
+                this["CheckForUpdatesRegularly"] = value;
+            }
+        }
     }
 }

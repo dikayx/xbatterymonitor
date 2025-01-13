@@ -27,6 +27,36 @@ namespace XBatteryMonitor
             StartMonitoringStatus();
         }
 
+        private async void CheckForUpdatesButton_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                var updater = new Updater();
+                if (await updater.IsUpdateAvailable())
+                {
+                    var result = MessageBox.Show(
+                        "A new update is available. Would you like to install it?",
+                        "Update Available",
+                        MessageBoxButtons.YesNo,
+                        MessageBoxIcon.Question);
+
+                    if (result == DialogResult.Yes)
+                    {
+                        await updater.DownloadAndInstallUpdate();
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("You are already using the latest version.", "No Updates", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error checking for updates: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+
         private void CheckControllerStatus()
         {
             var gamepad = Gamepad.Gamepads.FirstOrDefault();
@@ -153,6 +183,7 @@ namespace XBatteryMonitor
             Properties.Settings.Default.BatteryThreshold = batteryThresholdSlider.Value;
             Properties.Settings.Default.NotificationInterval = (int)notificationIntervalInput.Value;
             Properties.Settings.Default.SleepThreshold = (int)sleepThresholdInput.Value;
+            Properties.Settings.Default.CheckForUpdatesRegularly = checkForUpdatesCheckbox.Checked;
             Properties.Settings.Default.Save();
 
             BatteryMonitor.UpdateSettings(batteryThresholdSlider.Value, (int)notificationIntervalInput.Value, (int)sleepThresholdInput.Value);
