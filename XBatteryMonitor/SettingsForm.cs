@@ -22,9 +22,28 @@ namespace XBatteryMonitor
 
             UpdateThresholdLabel();
 
-            CheckControllerStatus();
+            checkForUpdatesButton.Click += CheckForUpdatesButton_Click;
+            batteryThresholdSlider.ValueChanged += BatteryThresholdSlider_ValueChanged;
+            testNotificationButton.Click += TestNotificationButton_Click;
+            saveButton.Click += SaveButton_Click;
 
+            notificationIntervalInput.ValueChanged += NotificationIntervalInput_ValueChanged;
+            sleepThresholdInput.ValueChanged += SleepThresholdInput_ValueChanged;
+
+            CheckControllerStatus();
             StartMonitoringStatus();
+        }
+
+        private void NotificationIntervalInput_ValueChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.NotificationInterval = (int)notificationIntervalInput.Value;
+            BatteryMonitor.UpdateSettings(batteryThresholdSlider.Value, (int)notificationIntervalInput.Value, (int)sleepThresholdInput.Value);
+        }
+
+        private void SleepThresholdInput_ValueChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.SleepThreshold = (int)sleepThresholdInput.Value;
+            BatteryMonitor.UpdateSettings(batteryThresholdSlider.Value, (int)notificationIntervalInput.Value, (int)sleepThresholdInput.Value);
         }
 
         private async void CheckForUpdatesButton_Click(object sender, EventArgs e)
@@ -55,7 +74,6 @@ namespace XBatteryMonitor
                 MessageBox.Show($"Error checking for updates: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
 
         private void CheckControllerStatus()
         {
