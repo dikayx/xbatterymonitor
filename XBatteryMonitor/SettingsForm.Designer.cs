@@ -82,7 +82,7 @@
             // 
             // checkForUpdatesButton
             // 
-            checkForUpdatesButton.Location = new Point(10, 70);
+            checkForUpdatesButton.Location = new Point(10, 80);
             checkForUpdatesButton.Name = "checkForUpdatesButton";
             checkForUpdatesButton.Size = new Size(120, 30);
             checkForUpdatesButton.TabIndex = 0;
@@ -112,7 +112,7 @@
             connectionTab.Controls.Add(batteryPercentageLabel);
             connectionTab.Location = new Point(4, 24);
             connectionTab.Name = "connectionTab";
-            connectionTab.Size = new Size(192, 72);
+            connectionTab.Size = new Size(342, 122);
             connectionTab.TabIndex = 1;
             connectionTab.Text = "Connection";
             // 
