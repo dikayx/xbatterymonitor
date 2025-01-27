@@ -1,6 +1,5 @@
 using System.Text.RegularExpressions;
 using Windows.Gaming.Input;
-using Timer = System.Threading.Timer;
 
 namespace XBatteryMonitor
 {
@@ -8,7 +7,6 @@ namespace XBatteryMonitor
     {
         static NotifyIcon? notifyIcon;
         static ToolStripMenuItem? statusMenuItem;
-        private static Timer? updateCheckTimer;
 
         [STAThread]
         static void Main()
@@ -38,18 +36,13 @@ namespace XBatteryMonitor
                 UpdateTrayTooltip("Controller removed. Waiting for connection...");
             };
 
-            // Start periodic update checks if enabled.
-            if (Properties.Settings.Default.CheckForUpdatesRegularly)
+            // Check for updates on startup
+            if (Properties.Settings.Default.CheckForUpdatesOnStartup)
             {
-                StartUpdateChecks();
+                _ = CheckForUpdates();
             }
 
             Application.Run();
-        }
-
-        static void StartUpdateChecks()
-        {
-            updateCheckTimer = new Timer(async state => await CheckForUpdates(), null, TimeSpan.Zero, TimeSpan.FromHours(24));
         }
 
         static async Task CheckForUpdates()

@@ -93,9 +93,9 @@
             checkForUpdatesCheckbox.AutoSize = true;
             checkForUpdatesCheckbox.Location = new Point(10, 40);
             checkForUpdatesCheckbox.Name = "checkForUpdatesCheckbox";
-            checkForUpdatesCheckbox.Size = new Size(171, 19);
+            checkForUpdatesCheckbox.Size = new Size(179, 19);
             checkForUpdatesCheckbox.TabIndex = 1;
-            checkForUpdatesCheckbox.Text = "Check for updates regularly";
+            checkForUpdatesCheckbox.Text = "Check for updates on startup";
             // 
             // autostartCheckbox
             // 

@@ -74,12 +74,12 @@ namespace XBatteryMonitor.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool CheckForUpdatesRegularly {
+        public bool CheckForUpdatesOnStartup {
             get {
-                return ((bool)(this["CheckForUpdatesRegularly"]));
+                return ((bool)(this["CheckForUpdatesOnStartup"]));
             }
             set {
-                this["CheckForUpdatesRegularly"] = value;
+                this["CheckForUpdatesOnStartup"] = value;
             }
         }
     }

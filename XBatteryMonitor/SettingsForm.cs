@@ -201,7 +201,7 @@ namespace XBatteryMonitor
             Properties.Settings.Default.BatteryThreshold = batteryThresholdSlider.Value;
             Properties.Settings.Default.NotificationInterval = (int)notificationIntervalInput.Value;
             Properties.Settings.Default.SleepThreshold = (int)sleepThresholdInput.Value;
-            Properties.Settings.Default.CheckForUpdatesRegularly = checkForUpdatesCheckbox.Checked;
+            Properties.Settings.Default.CheckForUpdatesOnStartup = checkForUpdatesCheckbox.Checked;
             Properties.Settings.Default.Save();
 
             BatteryMonitor.UpdateSettings(batteryThresholdSlider.Value, (int)notificationIntervalInput.Value, (int)sleepThresholdInput.Value);
