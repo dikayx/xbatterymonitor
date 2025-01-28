@@ -21,7 +21,7 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_98B1E16405F94DE7A914C45F195EDA77"
+        "MsmKey" = "8:_C585C76867E547549B523EA2A0DDE50E"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -122,9 +122,9 @@
         }
         "File"
         {
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_98B1E16405F94DE7A914C45F195EDA77"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_C585C76867E547549B523EA2A0DDE50E"
             {
-            "SourcePath" = "8:..\\Assets\\xbm_128x128.ico"
+            "SourcePath" = "8:..\\Assets\\Icons\\xbm_128x128.ico"
             "TargetName" = "8:xbm_128x128.ico"
             "Tag" = "8:"
             "Folder" = "8:_544BBE0AC94845E087B774D86203251D"
@@ -319,7 +319,7 @@
         }
         "Shortcut"
         {
-            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_A8B59133C1BC4B88A63DC2028B8FA5D0"
+            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_9CD63F647A0F47CAB580A88052E82ED8"
             {
             "Name" = "8:XBatteryMonitor"
             "Arguments" = "8:"
@@ -330,10 +330,10 @@
             "Target" = "8:_70D95168E055427294E804BCFCEF3F5A"
             "Folder" = "8:_3CD8C816C3A846F2ABA4635845BC08FD"
             "WorkingFolder" = "8:_544BBE0AC94845E087B774D86203251D"
-            "Icon" = "8:_98B1E16405F94DE7A914C45F195EDA77"
+            "Icon" = "8:"
             "Feature" = "8:"
             }
-            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_B39B05C8675C4A64BAB2190463A4BE58"
+            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_9F3EB0266FE944FE8AB55E3985A81644"
             {
             "Name" = "8:XBatteryMonitor"
             "Arguments" = "8:"
@@ -344,7 +344,7 @@
             "Target" = "8:_70D95168E055427294E804BCFCEF3F5A"
             "Folder" = "8:_DA1D331D0F854FFE9A380F9E4B775234"
             "WorkingFolder" = "8:_544BBE0AC94845E087B774D86203251D"
-            "Icon" = "8:_98B1E16405F94DE7A914C45F195EDA77"
+            "Icon" = "8:"
             "Feature" = "8:"
             }
         }
@@ -748,7 +748,7 @@
         {
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_70D95168E055427294E804BCFCEF3F5A"
             {
-            "SourcePath" = "8:..\\XBatteryMonitor\\obj\\Debug\\net8.0-windows\\apphost.exe"
+            "SourcePath" = "8:..\\XBatteryMonitor\\obj\\Release\\net8.0-windows\\apphost.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_544BBE0AC94845E087B774D86203251D"
