@@ -198,12 +198,12 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:XBatteryMonitor"
-        "ProductCode" = "8:{7376DE33-921B-4A4C-A7EB-E73C19643DC1}"
-        "PackageCode" = "8:{DA01BF5B-8A5D-46C5-ABD0-D3B58323E761}"
+        "ProductCode" = "8:{C051FCFF-332F-4783-90CA-C9B43C0FA1BD}"
+        "PackageCode" = "8:{161B13C3-A613-48B9-8006-10F0A5FBAC5F}"
         "UpgradeCode" = "8:{C21C961B-DE9A-49A0-935A-B8CD3F599F2D}"
         "AspNetVersion" = "8:2.0.50727.0"
         "RestartWWWService" = "11:FALSE"
-        "RemovePreviousVersions" = "11:FALSE"
+        "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:FALSE"
         "ProductVersion" = "8:1.1.0"
@@ -330,7 +330,7 @@
             "Target" = "8:_70D95168E055427294E804BCFCEF3F5A"
             "Folder" = "8:_3CD8C816C3A846F2ABA4635845BC08FD"
             "WorkingFolder" = "8:_544BBE0AC94845E087B774D86203251D"
-            "Icon" = "8:"
+            "Icon" = "8:_C585C76867E547549B523EA2A0DDE50E"
             "Feature" = "8:"
             }
             "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_9F3EB0266FE944FE8AB55E3985A81644"
@@ -344,7 +344,7 @@
             "Target" = "8:_70D95168E055427294E804BCFCEF3F5A"
             "Folder" = "8:_DA1D331D0F854FFE9A380F9E4B775234"
             "WorkingFolder" = "8:_544BBE0AC94845E087B774D86203251D"
-            "Icon" = "8:"
+            "Icon" = "8:_C585C76867E547549B523EA2A0DDE50E"
             "Feature" = "8:"
             }
         }
